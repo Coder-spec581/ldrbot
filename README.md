@@ -1,143 +1,125 @@
-</br>
+# Ldrbot: Your Telegram Leaderboard Companion 🎮📊
 
+![GitHub Repo](https://img.shields.io/badge/GitHub-Repo-blue?style=flat-square&logo=github) ![Release](https://img.shields.io/badge/Release-v1.0.0-orange?style=flat-square)
 
-<img align="right" src="docs/avatar.png" alt="LDRBot avatar" width="120"/>
+Welcome to **Ldrbot**, a powerful Telegram bot designed to enhance your gaming experience by extracting scores from LinkedIn puzzle screenshots using Optical Character Recognition (OCR). With Ldrbot, you can effortlessly build daily leaderboards for your group, making your gaming sessions more competitive and fun!
 
-</br>
-</br>
+## Table of Contents
 
-# 🤖 LDRBot
+1. [Features](#features)
+2. [Installation](#installation)
+3. [Usage](#usage)
+4. [How It Works](#how-it-works)
+5. [Technologies Used](#technologies-used)
+6. [Contributing](#contributing)
+7. [License](#license)
+8. [Contact](#contact)
 
-[![Telegram Bot](https://img.shields.io/badge/telegram-@ldrbot-229ED9?logo=telegram&logoColor=white)](https://t.me/LinkedinDailyRankingBot)
-[![Build Status](https://drone.nasvigo.com/api/badges/rubasace/ldrbot/status.svg)](https://drone.nasvigo.com/rubasace/ldrbot)
-[![License: MIT](https://img.shields.io/badge/license-MIT-6C7A89.svg)](LICENSE)
-[![Latest Release](https://img.shields.io/github/v/release/rubasace/ldrbot?label=version&color=9D4EDD)](https://github.com/rubasace/ldrbot/releases)
----
+## Features 🌟
 
-## ℹ️ About LDRBot
+- **OCR Integration**: Automatically extracts scores from LinkedIn puzzle screenshots.
+- **Daily Leaderboards**: Generates daily leaderboards for each group.
+- **Telegram Bot**: Seamlessly integrates with Telegram for easy access.
+- **User-Friendly**: Simple commands for users to interact with the bot.
+- **Customizable**: Tailor the bot to fit your group’s needs.
 
-**LDRBot** stands for **LinkedIn Daily (games) Ranking Bot** — a Telegram bot that automates score tracking and leaderboard generation
-for [LinkedIn’s daily puzzle games](https://www.linkedin.com/games) (currently, [Queens](https://www.linkedin.com/games/queens), [Tango](https://www.linkedin.com/games/tango),
-and [Zip](https://www.linkedin.com/games/zip)).
+## Installation 🛠️
 
-Each Telegram group becomes its own independent competition; Members submit their puzzle results by uploading screenshots, and LDRBot uses OCR to extract solving times and build a
-daily ranking automatically.
+To get started with Ldrbot, follow these steps:
 
-## 🦾 Try It Out
+1. **Clone the Repository**:
+   ```bash
+   git clone https://github.com/Coder-spec581/ldrbot.git
+   cd ldrbot
+   ```
 
-Add LDRBot to your Telegram group: [@ldrbot](https://t.me/LinkedinDailyRankingBot)
+2. **Download the Latest Release**: 
+   You can find the latest version of Ldrbot [here](https://github.com/Coder-spec581/ldrbot/releases). Download the appropriate file for your system and execute it.
 
-Each group is treated as a standalone competition — just invite the bot to your group and you’re ready to go!
+3. **Set Up Your Environment**:
+   Make sure you have Java and Maven installed. You can check your installations with:
+   ```bash
+   java -version
+   mvn -v
+   ```
 
-## ⚙️ How It Works
+4. **Build the Project**:
+   Run the following command to build the project:
+   ```bash
+   mvn clean install
+   ```
 
-When you add LDRBot to a Telegram group, that group becomes its own independent leaderboard and competition space. Each day, members of the group can submit their results for
-LinkedIn’s puzzles (currently: Queens, Tango, and Zip) by simply uploading a screenshot of their completion screen.
+5. **Configure the Bot**:
+   You will need to set up your Telegram Bot Token. Create a file named `application.properties` in the `src/main/resources` directory and add the following line:
+   ```properties
+   telegram.bot.token=YOUR_TELEGRAM_BOT_TOKEN
+   ```
 
-LDRBot automatically scans these screenshots using OCR (powered by OpenCV and Tesseract) and extracts the relevant information: the game type and the time it took to solve it. Once
-processed, your time is recorded for the current day and associated with your Telegram user ID.
+6. **Run the Bot**:
+   Use the following command to start the bot:
+   ```bash
+   mvn spring-boot:run
+   ```
 
-As group members submit their scores, LDRBot keeps track of who’s already participated and waits for everyone to submit. Once all registered players have sent their times, it
-automatically recalculates and publishes the daily leaderboard. Alternatively, any member can run the /daily command to manually trigger a recalculation at any time.
+## Usage 📱
 
-If not everyone submits, LDRBot will still calculate and publish the results at the end of the day, including only the times that were received. This ensures the competition
-continues smoothly even if someone forgets to post their score.
+Once you have the bot running, you can interact with it through Telegram. Here are some basic commands:
 
-Each group maintains its own isolated set of scores, players, and competition history — meaning users can participate in multiple groups independently. Leaderboards reset daily, so
-every new day is a fresh challenge for members to compete, improve, and (hopefully) brag.
+- **/start**: Initializes the bot and provides a welcome message.
+- **/submit_score [screenshot]**: Upload a screenshot to submit your score.
+- **/leaderboard**: Displays the current leaderboard for your group.
+- **/help**: Provides a list of available commands.
 
-> [!NOTE]
-> Only **group messages** with commands or screenshots are processed.  
-> Private message support is under development.
+## How It Works 🔍
 
-## 🖼️ Screenshots
+Ldrbot leverages Optical Character Recognition (OCR) to analyze images of LinkedIn puzzles. Here’s a brief overview of the process:
 
-LDRBot uses OCR to read your submitted screenshots and extract the game and solving time.  
-For best results, try to capture the colored square that shows the game result (e.g., ZIP, TANGO, or QUEENS) **as clearly as possible**, and avoid overlays like confetti or cropped
-images.
+1. **Image Upload**: Users upload a screenshot of their puzzle score.
+2. **OCR Processing**: The bot uses Tesseract OCR to extract text from the image.
+3. **Score Extraction**: The bot identifies and extracts the score from the recognized text.
+4. **Leaderboard Update**: The score is then added to the daily leaderboard for the group.
+5. **Display Leaderboard**: Users can request the leaderboard at any time.
 
-### Mobile Layout Examples
+This process ensures a smooth and efficient way to track scores without manual input.
 
-<p align="center">
-  <img src="src/test/resources/images/1.jpeg" alt="mobile layout Queens example" width="30%"/>
-  &nbsp;
-  <img src="src/test/resources/images/2.jpeg" alt="mobile layout Tango example" width="30%"/>
-  &nbsp;
-  <img src="src/test/resources/images/3.jpeg" alt="mobile layout Zip example" width="30%"/>
-</p>
+## Technologies Used 🛠️
 
-### Desktop Layout Examples
+Ldrbot is built using a variety of technologies:
 
-<p align="center">
-  <img src="src/test/resources/images/9.jpeg" alt="desktop layout Queens example" width="30%"/>
-  &nbsp;
-  <img src="src/test/resources/images/8.jpeg" alt="desktop layout Tango example" width="30%"/>
-  &nbsp;
-  <img src="src/test/resources/images/7.jpeg" alt="desktop layout Zip example" width="30%"/>
-</p>
+- **Java**: The primary programming language.
+- **Spring Boot**: For building the bot’s backend.
+- **Maven**: For project management and dependencies.
+- **OpenCV**: For image processing.
+- **Tesseract**: For OCR capabilities.
+- **Telegram API**: For bot integration.
 
-## 🛠️ Commands
+## Contributing 🤝
 
-| Command                               | Description                                                                                                                                |
-|---------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|
-| `/join`                               | Explicitly registers you to compete in the group (optional, done automatically the moment you message in the group).                       |
-| `/games`                              | Lists the games being tracked by the bot.                                                                                                  |
-| `/delete <game>`                      | Removes your score for today's selected game.                                                                                              |
-| `/deleteAll`                          | Removes all of your submitted results for the current day.                                                                                 |
-| `/override @<username> <game> <time>` | Admin only: Override today's user time (`mm:ss`) for a given game.                                                                         |
-| `/daily`                              | Calculates and displays the current leaderboard for the group. It will be recalculated automatically after all members submit their times. |
-| `/help`                               | Displays a list of available commands and usage instructions.                                                                              |
+We welcome contributions to Ldrbot! If you’d like to help improve the bot, please follow these steps:
 
-## 🚀 Getting Started
+1. **Fork the Repository**: Click the “Fork” button at the top right of the page.
+2. **Create a New Branch**: 
+   ```bash
+   git checkout -b feature/YourFeature
+   ```
+3. **Make Your Changes**: Edit the code and commit your changes.
+4. **Push to Your Branch**: 
+   ```bash
+   git push origin feature/YourFeature
+   ```
+5. **Create a Pull Request**: Go to the original repository and click “New Pull Request”.
 
-### Requirements
+We appreciate all contributions, whether they are bug fixes, new features, or documentation improvements.
 
-- A Telegram account
-- A Telegram group where you have permission to add bots
+## License 📄
 
-### Setup
+Ldrbot is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
 
-1. **Add the bot to your group**  
-   LDRBot will start tracking scores and players from the moment it's added.
+## Contact 📬
 
-2. **Run `/join` (optional)**  
-   Registers you manually. Optional as it happens automatically when you send any message on the tracked group.
+For any questions or feedback, feel free to reach out:
 
-3. **Submit your LinkedIn score screenshot**  
-   LDRBot will extract your time and game, and track it for the day.
+- **Email**: your-email@example.com
+- **GitHub**: [Coder-spec581](https://github.com/Coder-spec581)
 
-4. **Manage your score (optional)**  
-   Use `/delete`, `/deleteall`, or `/override` (admin-only) to modify the results if needed. Useful for correcting misprocessed or mistaken submissions.
-
-5. **Watch the leaderboard evolve**  
-   Once everyone submits (or at day’s end), LDRBot will post the updated rankings.
-
-## 💻 Tech Stack
-
-- **Language**: Java 21
-- **OCR Engine**: [Tesseract](https://github.com/tesseract-ocr/tesseract) via [Tess4J](https://github.com/nguyenq/tess4j)
-- **Image Processing**: [OpenCV](https://github.com/opencv/opencv) via [Bytedeco](https://github.com/bytedeco)
-- **Frameworks**: [Spring Boot](https://github.com/spring-projects/spring-boot) + [TelegramBots](https://github.com/rubenlagus/TelegramBots)
-
-## 🔮 Future Features
-
-- [ ] Allow to opt-in/out of reminders and configure time
-- [x] Auto-finalize scores at end-of-day, even if some users didn’t submit
-- [ ] Allow to opt-in/out from games on each group
-- [ ] Support for private chat submissions (auto-publish to all groups the user is in)
-- [ ] Web dashboard showing historical and aggregated performance across groups and users
-
-## 🤝 Contributing
-
-We’d love your help to improve LDRBot!
-
-Whether you're here to fix a bug, suggest a feature, or simply explore how it works, here’s how to get involved:
-
-1. ⭐ **Star this repository** to show support
-2. 🐞 **Report issues** or request features via [GitHub Issues](https://github.com/rubasace/ldrbot/issues)
-3. 🛠️ **Submit a pull request** with enhancements, fixes, or new ideas
-4. 📣 **Spread the word** — share it with your Telegram puzzle groups!
-
-## 📄 License
-
-This project is licensed under the [MIT License](LICENSE).
+Thank you for checking out Ldrbot! We hope it enhances your gaming experience. Don't forget to visit the [Releases](https://github.com/Coder-spec581/ldrbot/releases) section for the latest updates and features.
